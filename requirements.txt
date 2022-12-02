@@ -1,1 +1,3 @@
 Pillow==9.3.0
+botocore==1.29.21
+boto3==1.26.21

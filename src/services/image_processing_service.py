@@ -37,8 +37,9 @@ class ImageProcessingService(object):
         font = font if font else None
         width, height = self.get_image_dimensions()
         drawer = ImageDraw.Draw(self.image)
-        _, _, w, h = drawer.textbbox((0, 0), (text.encode('utf-8').decode('utf-8')), font=font)
-        drawer.multiline_text(((width-w)/2, (height-h)/2), text, font=font, align='center', embedded_color=True, fill=(255,0,166))
+        textbox = drawer.textbbox((10, 10), text, font=font)
+        _, _, w, h = textbox
+        drawer.multiline_text(((width-w)/2, (height-h)/2), text, font=font, align='center', embedded_color=True, fill=(255,0,166), stroke_fill='white', stroke_width=3)
         self.image.save(out_dir)
     
     def add_image_to_image(self, img, position: str, out_dir: str) -> None:
@@ -46,3 +47,4 @@ class ImageProcessingService(object):
         x_pos, y_pos = self.calculate_sub_image_position(img_to_paste, position)
         self.image.paste(img_to_paste, (x_pos, y_pos), img_to_paste)
         self.image.save(out_dir)
+

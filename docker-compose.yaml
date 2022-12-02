@@ -4,6 +4,8 @@ services:
   image-api:
     build:
       context: .
+    env_file:
+      - .env
     volumes:
     - ./src/:/image-api
     command:
