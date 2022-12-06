@@ -6,7 +6,9 @@ services:
       context: .
     env_file:
       - .env
+    ports:
+      - 8000:8000
     volumes:
     - ./src/:/image-api
     command:
-      python3 main.py
+      uvicorn main:app --host 0.0.0.0 --port 8000 --reload

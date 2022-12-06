@@ -4,7 +4,7 @@ class ImageProcessingService(object):
 
     def __init__(self, image) -> None:
         self.image = Image.open(image)
-    
+        
     def get_image_dimensions(self):
         return self.image.size
     
@@ -47,4 +47,11 @@ class ImageProcessingService(object):
         x_pos, y_pos = self.calculate_sub_image_position(img_to_paste, position)
         self.image.paste(img_to_paste, (x_pos, y_pos), img_to_paste)
         self.image.save(out_dir)
+    
+    def resize_image(self, out_dir):
+        width, height = self.get_image_dimensions()
+        w = round(width / 2)
+        h = round(height / 2)
+        self.image = self.image.resize((w, h), Image.ANTIALIAS)
+        self.image.save(out_dir, optimize=True, quality=95)
 

@@ -1,6 +1,5 @@
 import os
 import boto3
-import uuid
 from botocore.exceptions import ClientError
 
 class FileIOService(object):
@@ -13,9 +12,10 @@ class FileIOService(object):
         )
         self.client = boto3.client('s3')
     
-    def upload_file(self, file: any, bucket_name: str) -> bool:
+    def upload_file(self, file: any, bucket_name: str, file_name: str) -> bool:
         try:
-            self.client.upload_file(file, bucket_name, str(uuid.uuid4()))
+            self.client.upload_file(file, bucket_name, file_name)
         except ClientError:
             return False
         return True
+
