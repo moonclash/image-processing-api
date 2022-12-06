@@ -33,13 +33,12 @@ class ImageProcessingService(object):
         self.image = enhancer.enhance(value)
         self.image.save(out_dir)
 
-    def add_text_to_image(self, text: str, out_dir: str, font=None) -> None:
-        font = font if font else None
+    def add_text_to_image(self, text: str, out_dir: str, font_options) -> None:
         width, height = self.get_image_dimensions()
         drawer = ImageDraw.Draw(self.image)
-        textbox = drawer.textbbox((10, 10), text, font=font)
+        textbox = drawer.textbbox((10, 10), text, font_options.get('font'))
         _, _, w, h = textbox
-        drawer.multiline_text(((width-w)/2, (height-h)/2), text, font=font, align='center', embedded_color=True, fill=(255,0,166), stroke_fill='white', stroke_width=3)
+        drawer.multiline_text(((width - w) / 2, (height - h) / 2), text, **font_options)
         self.image.save(out_dir)
     
     def add_image_to_image(self, img, position: str, out_dir: str) -> None:
