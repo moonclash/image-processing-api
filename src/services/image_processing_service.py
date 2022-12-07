@@ -43,6 +43,8 @@ class ImageProcessingService(object):
     
     def add_image_to_image(self, img, position: str, out_dir: str) -> None:
         img_to_paste = Image.open(img)
+        width, height = self.get_image_dimensions()
+        img_to_paste = img_to_paste.resize((round(width / 4), round(height / 4)))
         x_pos, y_pos = self.calculate_sub_image_position(img_to_paste, position)
         self.image.paste(img_to_paste, (x_pos, y_pos), img_to_paste)
         self.image.save(out_dir)
