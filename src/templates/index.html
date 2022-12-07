@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Good morning!</h1>
+        </div>
+    </div>
+    <div class="container">
+       <div class="intro-content">
+        <h2>The Good Morning Project</h2>
+        <p>The Good Morning Project is a MaaS (Meme as a Service) project,
+            specifically developed to solve a problem that many Eastern European
+            mothers, aunts and grandmothers face every day - 
+            <strong>
+                finding the perfect "Good Morning" picture to post on Facebook.
+            </strong>
+        </p>
+        <p>The Good Morning project solves that problem by providing 
+            a unique service, called 
+            <strong>GoodMorningfy</strong>
+        </p>
+        <p>
+            Simply upload a picture, and our state-of-the-art technology 
+            will turn your picture into a beautiful masterpiece, ready for your 
+            Facebook wall.
+        </p>
+       </div>
+        <form action="/files" method="POST" enctype="multipart/form-data"> 
+            <label for="file-upload">choose file</label>
+            <input type="file" name="file" id="file-upload">
+            <button>Upload</button>
+        </form>
+        <div class="img-wrap">
+            <img src="">
+        </div>
+    </div>
+</body>
+<script src="{{ url_for('static', path='/script.js') }}"></script>
+</html>
