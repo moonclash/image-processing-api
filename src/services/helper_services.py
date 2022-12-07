@@ -3,7 +3,7 @@ import re
 import uuid
 from datetime import datetime
 from PIL import ImageFont
-from .services.image_processing_service import ImageProcessingService
+from .image_processing_service import ImageProcessingService
 
 
 class DateHelper(object):
