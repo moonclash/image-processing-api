@@ -6,10 +6,11 @@ from fastapi.templating import Jinja2Templates
 from .services.file_io_service import FileIOService
 from .services.helper_services import GoodMorningImage
 
+
 app = FastAPI()
 
-app.mount('./static', StaticFiles(directory='./static'), name='static')
-templates = Jinja2Templates(directory='./templates')
+app.mount(os.path.join('/static'), StaticFiles(directory='static'), name='static')
+templates = Jinja2Templates(directory='templates')
 
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
