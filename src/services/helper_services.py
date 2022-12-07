@@ -34,7 +34,7 @@ class GoodMorningImage(object):
   @staticmethod
   def good_morningfy(image, file_name):
     static_dir = os.path.dirname(__file__)
-    fonts_dir = os.path.join(static_dir, 'fonts/')
+    fonts_dir = os.path.join(static_dir, '../fonts/')
     today_in_bulgarian = DateHelper.get_day_in_bulgarian()
     ext_regex = re.compile('\.[a-z]*', re.IGNORECASE)
     image_ext, *_ = re.findall(ext_regex, file_name)
