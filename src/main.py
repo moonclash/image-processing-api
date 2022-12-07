@@ -9,7 +9,7 @@ from .services.helper_services import GoodMorningImage
 
 app = FastAPI()
 
-app.mount(os.path.join('/static'), StaticFiles(directory='static'), name='static')
+app.mount(os.path.join('/static'), StaticFiles(directory=os.path.join('/static')), name='static')
 templates = Jinja2Templates(directory='templates')
 
 @app.get("/", response_class=HTMLResponse)
