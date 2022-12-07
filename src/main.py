@@ -3,8 +3,8 @@ from fastapi import FastAPI, UploadFile, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from services.file_io_service import FileIOService
-from services.helper_services import GoodMorningImage
+from .services.file_io_service import FileIOService
+from .services.helper_services import GoodMorningImage
 
 app = FastAPI()
 
