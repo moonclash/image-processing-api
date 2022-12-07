@@ -54,9 +54,9 @@ class GoodMorningImage(object):
     image_processing_service.adjust_contrast(3, new_image_name)
     image_processing_service.adjust_brightness(0.3, new_image_name)
     image_processing_service.add_text_to_image(string_builder, new_image_name, font_options)
-    image_processing_service.add_image_to_image(os.path.join('images', 'coffee.png'), 'bottom right', new_image_name)
-    image_processing_service.add_image_to_image(os.path.join('images', 'jesus.png'), 'top left', new_image_name)
-    image_processing_service.add_image_to_image(os.path.join('images', 'rose.png'), 'bottom left', new_image_name)
+    image_processing_service.add_image_to_image(os.path.join('../images', 'coffee.png'), 'bottom right', new_image_name)
+    image_processing_service.add_image_to_image(os.path.join('../images', 'jesus.png'), 'top left', new_image_name)
+    image_processing_service.add_image_to_image(os.path.join('../images', 'rose.png'), 'bottom left', new_image_name)
     image_processing_service.resize_image(new_image_name)
     return new_image_name
     

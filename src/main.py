@@ -21,7 +21,7 @@ async def root(request: Request):
     return templates.TemplateResponse('index.html', {'request': request, 'title': 'Good Morning'})
 
 
-@app.post('/files/')
+@app.post('/files')
 async def upload_file(file: UploadFile):
     io_service = FileIOService()
     modified_image = GoodMorningImage.good_morningfy(file.file, file.filename)
