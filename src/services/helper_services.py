@@ -35,6 +35,7 @@ class GoodMorningImage(object):
   def good_morningfy(image, file_name):
     static_dir = os.path.dirname(__file__)
     fonts_dir = os.path.join(static_dir, '../fonts/')
+    images_dir = os.path.join(static_dir, '../images/')
     today_in_bulgarian = DateHelper.get_day_in_bulgarian()
     ext_regex = re.compile('\.[a-z]*', re.IGNORECASE)
     image_ext, *_ = re.findall(ext_regex, file_name)
@@ -54,9 +55,9 @@ class GoodMorningImage(object):
     image_processing_service.adjust_contrast(3, new_image_name)
     image_processing_service.adjust_brightness(0.3, new_image_name)
     image_processing_service.add_text_to_image(string_builder, new_image_name, font_options)
-    image_processing_service.add_image_to_image(os.path.join('../images', 'coffee.png'), 'bottom right', new_image_name)
-    image_processing_service.add_image_to_image(os.path.join('../images', 'jesus.png'), 'top left', new_image_name)
-    image_processing_service.add_image_to_image(os.path.join('../images', 'rose.png'), 'bottom left', new_image_name)
+    image_processing_service.add_image_to_image(os.path.join(images_dir, 'coffee.png'), 'bottom right', new_image_name)
+    image_processing_service.add_image_to_image(os.path.join(images_dir, 'jesus.png'), 'top left', new_image_name)
+    image_processing_service.add_image_to_image(os.path.join(images_dir, 'rose.png'), 'bottom left', new_image_name)
     image_processing_service.resize_image(new_image_name)
     return new_image_name
     
