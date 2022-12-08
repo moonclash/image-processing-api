@@ -10,10 +10,10 @@ from .services.helper_services import GoodMorningImage
 app = FastAPI()
 
 static_dir = os.path.dirname(__file__)
-st_abs_file_path = os.path.join(static_dir, "static/")
+static_path = os.path.join(static_dir, "static/")
 templates_path = os.path.join(static_dir, "templates/")
 
-app.mount(os.path.join('/static'), StaticFiles(directory=st_abs_file_path), name='static')
+app.mount(os.path.join('/static'), StaticFiles(directory=static_path), name='static')
 templates = Jinja2Templates(directory=templates_path)
 
 @app.get("/", response_class=HTMLResponse)

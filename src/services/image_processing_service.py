@@ -1,12 +1,24 @@
-from PIL import Image, ImageDraw, ImageEnhance
+from PIL import Image, ImageDraw, ImageEnhance, ExifTags
 
 class ImageProcessingService(object):
 
     def __init__(self, image) -> None:
         self.image = Image.open(image)
         
+    def rotate_image_if_landscape(self):
+        exif_data = self.get_image_exif_data()
+        if 'Orientation' in exif_data and exif_data['Orientation'] == 6:
+            self.image = self.image.rotate(-90, expand=True)
+
     def get_image_dimensions(self):
         return self.image.size
+    
+    def get_image_exif_data(self):
+        exif_data = self.image.getexif()
+        return {
+            ExifTags.TAGS[k] : v
+            for (k, v) in exif_data.items()
+        }
     
     def calculate_sub_image_position(self, sub_image, position: str):
         width, height = self.get_image_dimensions()
@@ -33,12 +45,15 @@ class ImageProcessingService(object):
         self.image = enhancer.enhance(value)
         self.image.save(out_dir)
 
-    def add_text_to_image(self, text: str, out_dir: str, font_options) -> None:
+    def add_text_to_image(self, text: str, out_dir: str, font_options, position=None) -> None:
         width, height = self.get_image_dimensions()
+        position = position if position else None
         drawer = ImageDraw.Draw(self.image)
         textbox = drawer.textbbox((10, 10), text, font_options.get('font'))
         _, _, w, h = textbox
-        drawer.multiline_text(((width - w) / 2, (height - h) / 2), text, **font_options)
+        x_pos = (width - w) / 2
+        y_pos = (height - h) / 2 if not position else h
+        drawer.multiline_text((x_pos, y_pos), text, **font_options)
         self.image.save(out_dir)
     
     def add_image_to_image(self, img, position: str, out_dir: str) -> None:

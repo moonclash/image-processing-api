@@ -3,7 +3,7 @@ import re
 import uuid
 from datetime import datetime
 from PIL import ImageFont
-from .image_processing_service import ImageProcessingService
+from .services.image_processing_service import ImageProcessingService
 
 
 class DateHelper(object):
@@ -30,7 +30,7 @@ class DateHelper(object):
 
 class GoodMorningImage(object):
 
-
+#  TODO - this is kinda shitty, clean it up
   @staticmethod
   def good_morningfy(image, file_name):
     static_dir = os.path.dirname(__file__)
@@ -52,9 +52,19 @@ class GoodMorningImage(object):
         'stroke_width': 3 
     }
     image_processing_service = ImageProcessingService(image)
+    image_processing_service.rotate_image_if_landscape()
     image_processing_service.adjust_contrast(3, new_image_name)
     image_processing_service.adjust_brightness(0.3, new_image_name)
     image_processing_service.add_text_to_image(string_builder, new_image_name, font_options)
+    image_processing_service.add_text_to_image('www.dobroutro.net', new_image_name, {
+      'fill': (255,255,255),
+      'stroke_fill': 'black',
+      'embedded_color': True,
+      'align': 'center',
+      'font': ImageFont.truetype(os.path.join(fonts_dir, 'poppins.ttf'), round(font_size / 2))
+    },
+    position='top'
+    )
     image_processing_service.add_image_to_image(os.path.join(images_dir, 'coffee.png'), 'bottom right', new_image_name)
     image_processing_service.add_image_to_image(os.path.join(images_dir, 'jesus.png'), 'top left', new_image_name)
     image_processing_service.add_image_to_image(os.path.join(images_dir, 'rose.png'), 'bottom left', new_image_name)
