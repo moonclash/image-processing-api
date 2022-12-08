@@ -43,7 +43,7 @@ class GoodMorningImage(object):
     new_image_name = f'{str(uuid.uuid4())}{image_ext}'
     string_builder = f'Добро утро в {today_in_bulgarian}! \n Поднасям ви топло кафе и усмивки!'
     w, h = image_processing_service.get_image_dimensions()
-    font_size = round(w / 8)
+    font_size = round(w / 12)
     font = ImageFont.truetype(os.path.join(fonts_dir, 'adantino.ttf'), font_size)
     font_options = {
         'font': font,
