@@ -33,6 +33,7 @@ class GoodMorningImage(object):
 #  TODO - this is kinda shitty, clean it up
   @staticmethod
   def good_morningfy(image, file_name):
+    image_processing_service = ImageProcessingService(image)
     static_dir = os.path.dirname(__file__)
     fonts_dir = os.path.join(static_dir, '../fonts/')
     images_dir = os.path.join(static_dir, '../images/')
@@ -41,7 +42,8 @@ class GoodMorningImage(object):
     image_ext, *_ = re.findall(ext_regex, file_name)
     new_image_name = f'{str(uuid.uuid4())}{image_ext}'
     string_builder = f'Добро утро в {today_in_bulgarian}! \n Поднасям ви топло кафе и усмивки!'
-    font_size = round(len(string_builder) * 1.5)
+    w, h = image_processing_service.get_image_dimensions()
+    font_size = round(w / 8)
     font = ImageFont.truetype(os.path.join(fonts_dir, 'adantino.ttf'), font_size)
     font_options = {
         'font': font,
@@ -51,7 +53,7 @@ class GoodMorningImage(object):
         'stroke_fill': 'white',
         'stroke_width': 3 
     }
-    image_processing_service = ImageProcessingService(image)
+    
     image_processing_service.rotate_image_if_landscape()
     image_processing_service.adjust_contrast(3, new_image_name)
     image_processing_service.adjust_brightness(0.3, new_image_name)
